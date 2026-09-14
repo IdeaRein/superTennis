@@ -13,4 +13,4 @@
 @end
 
 // Register the plugin
-VISION_EXPORT_FRAME_PROCESSOR(TennisBallDetectorFrameProcessor, detectTennisBall)
+VISION_EXPORT_SWIFT_FRAME_PROCESSOR(TennisBallDetectorFrameProcessor, detectTennisBall)

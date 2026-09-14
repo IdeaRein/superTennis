@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "超级网球",
+    "name": "Super Tennis",
     "slug": "super-tennis",
     "version": "0.1.0",
     "orientation": "portrait",
@@ -17,8 +17,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.supertennis.app",
       "infoPlist": {
-        "NSCameraUsageDescription": "用于录制比赛视频和AI鹰眼判定",
-        "NSMicrophoneUsageDescription": "用于录制比赛声音"
+        "NSCameraUsageDescription": "Camera access is used for tennis-ball detection and match recording.",
+        "NSMicrophoneUsageDescription": "Microphone access is used to record audio with match videos.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -27,7 +28,10 @@
         "backgroundColor": "#10B981"
       },
       "package": "com.supertennis.app",
-      "permissions": ["android.permission.CAMERA", "android.permission.RECORD_AUDIO"]
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -39,9 +43,9 @@
       [
         "react-native-vision-camera",
         {
-          "cameraPermissionText": "用于录制比赛视频和AI鹰眼判定",
+          "cameraPermissionText": "Camera access is used for tennis-ball detection and match recording.",
           "enableMicrophonePermission": true,
-          "microphonePermissionText": "用于录制比赛声音",
+          "microphonePermissionText": "Microphone access is used to record audio with match videos.",
           "enableFrameProcessors": true
         }
       ],
@@ -53,9 +57,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "0cdc611b-3281-4089-bcc8-5ea625f680d3"
+        "projectId": "6cadc9b6-3188-40b2-8cb0-29c392a5b331"
       }
     },
-    "owner": "qitao"
+    "owner": "idearein"
   }
 }

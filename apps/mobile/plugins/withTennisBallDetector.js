@@ -5,7 +5,7 @@
  * to the Xcode project during prebuild.
  */
 
-const { withXcodeProject, withDangerousMod, IOSConfig } = require('@expo/config-plugins');
+const { withXcodeProject, withDangerousMod } = require('@expo/config-plugins');
 const fs = require('fs');
 const path = require('path');
 
@@ -18,7 +18,7 @@ function withTennisBallDetectorXcode(config) {
     const projectName = config.modRequest.projectName;
 
     // Source files in our plugin directory
-    const sourceDir = path.join(config.modRequest.projectRoot, 'ios', 'TennisBallDetector');
+    const sourceDir = path.join(config.modRequest.projectRoot, 'plugins', 'ios', 'TennisBallDetector');
 
     // Target group in Xcode project
     const targetGroup = xcodeProject.addPbxGroup([], 'TennisBallDetector', 'TennisBallDetector');
@@ -35,7 +35,7 @@ function withTennisBallDetectorXcode(config) {
 
       for (const file of files) {
         const filePath = path.join(sourceDir, file);
-        const relativePath = `TennisBallDetector/${file}`;
+        const relativePath = file;
 
         if (file.endsWith('.swift')) {
           // Add Swift file
@@ -96,10 +96,10 @@ function withTennisBallDetectorFiles(config) {
       const projectRoot = config.modRequest.projectRoot;
 
       // Source directory (in our project)
-      const sourceDir = path.join(projectRoot, 'ios', 'TennisBallDetector');
+      const sourceDir = path.join(projectRoot, 'plugins', 'ios', 'TennisBallDetector');
 
       // Destination in generated ios folder
-      const iosDir = path.join(projectRoot, 'ios');
+      const iosDir = config.modRequest.platformProjectRoot;
       const destDir = path.join(iosDir, 'TennisBallDetector');
 
       // Create destination directory if it doesn't exist
