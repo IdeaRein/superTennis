@@ -145,7 +145,7 @@ export default {
   settings: {
     title: 'Settings',
     language: 'Language',
-    chinese: '中文',
+    japanese: '日本語',
     english: 'English',
     camera: 'Camera',
     cameraPermission: 'Camera Permission',

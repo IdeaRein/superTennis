@@ -1,11 +1,11 @@
 /**
- * 分享服务 - 生成分享海报和社交分享
+ * 共有サービス: 共有カードとSNS用テキストを生成します
  */
 
 import { Share, Platform } from 'react-native';
 import * as FileSystem from 'expo-file-system/legacy';
 
-// 比赛结果分享数据
+// 試合結果の共有データ
 export interface MatchShareData {
   player1Name: string;
   player2Name: string;
@@ -17,7 +17,7 @@ export interface MatchShareData {
   matchType: 'singles' | 'doubles';
 }
 
-// 成就分享数据
+// 実績の共有データ
 export interface AchievementShareData {
   title: string;
   description: string;
@@ -26,7 +26,7 @@ export interface AchievementShareData {
   userName: string;
 }
 
-// 训练总结分享数据
+// 練習サマリーの共有データ
 export interface TrainingShareData {
   type: string;
   duration: number;
@@ -38,7 +38,7 @@ export interface TrainingShareData {
 }
 
 /**
- * 生成比赛结果文本
+ * 試合結果の共有テキストを生成します
  */
 export function generateMatchResultText(data: MatchShareData): string {
   const winnerName = data.winner === 1 ? data.player1Name : data.player2Name;
@@ -47,72 +47,72 @@ export function generateMatchResultText(data: MatchShareData): string {
   const sets = data.player1Sets.map((s, i) => `${s}-${data.player2Sets[i]}`).join(' ');
 
   const durationMin = Math.floor(data.duration / 60);
-  const dateStr = data.date.toLocaleDateString('zh-CN');
+  const dateStr = data.date.toLocaleDateString('ja-JP');
 
-  return `🎾 网球比赛结果
+  return `🎾 テニス試合結果
 
-🏆 ${winnerName} 获胜！
+🏆 ${winnerName} の勝利！
 
-比分: ${sets}
-时长: ${durationMin} 分钟
-日期: ${dateStr}
-类型: ${data.matchType === 'singles' ? '单打' : '双打'}
+スコア: ${sets}
+試合時間: ${durationMin}分
+日付: ${dateStr}
+種目: ${data.matchType === 'singles' ? 'シングルス' : 'ダブルス'}
 
-#SuperTennis #网球 #运动`;
+#SuperTennis #テニス #スポーツ`;
 }
 
 /**
- * 生成成就分享文本
+ * 実績の共有テキストを生成します
  */
 export function generateAchievementText(data: AchievementShareData): string {
-  const dateStr = data.unlockedAt.toLocaleDateString('zh-CN');
+  const dateStr = data.unlockedAt.toLocaleDateString('ja-JP');
 
-  return `${data.icon} 成就解锁！
+  return `${data.icon} 実績を解除！
 
 ${data.title}
 ${data.description}
 
-解锁者: ${data.userName}
-解锁时间: ${dateStr}
+達成者: ${data.userName}
+達成日: ${dateStr}
 
-#SuperTennis #网球 #成就`;
+#SuperTennis #テニス #実績`;
 }
 
 /**
- * 生成训练总结文本
+ * 練習サマリーの共有テキストを生成します
  */
 export function generateTrainingText(data: TrainingShareData): string {
   const durationMin = Math.floor(data.duration / 60);
-  const dateStr = data.date.toLocaleDateString('zh-CN');
+  const dateStr = data.date.toLocaleDateString('ja-JP');
 
   const typeNames: { [key: string]: string } = {
-    serve: '发球练习',
-    forehand: '正手击球',
-    backhand: '反手击球',
-    volley: '网前截击',
-    rally: '底线对抗',
+    serve: 'サーブ練習',
+    forehand: 'フォアハンド',
+    backhand: 'バックハンド',
+    volley: 'ネット前ボレー',
+    rally: 'ベースラインラリー',
   };
 
-  let text = `🎾 训练完成！
+  let text = `🎾 練習完了！
 
-训练类型: ${typeNames[data.type] || data.type}
-训练时长: ${durationMin} 分钟
-击球次数: ${data.totalShots}
+練習種目: ${typeNames[data.type] || data.type}
+練習時間: ${durationMin}分
+ショット数: ${data.totalShots}
 成功率: ${data.successRate}%`;
 
   if (data.avgSpeed) {
     text += `\n平均球速: ${data.avgSpeed.toFixed(1)} km/h`;
   }
 
-  text += `\n日期: ${dateStr}
+  text += `\n日付: ${dateStr}
 
-#SuperTennis #网球训练 #运动`;
+#SuperTennis #テニス練習 #スポーツ`;
 
   return text;
 }
 
 /**
- * 生成排行榜分享文本
+ * ランキングの共有テキストを生成します
  */
 export function generateLeaderboardText(
   rank: number,
@@ -127,18 +127,18 @@ export function generateLeaderboardText(
   else if (rank <= 10) emoji = '🏅';
   else emoji = '🎾';
 
-  return `${emoji} SuperTennis 排行榜
+  return `${emoji} SuperTennis ランキング
 
-玩家: ${userName}
-排名: #${rank}
-积分: ${rating}
-超越: ${percentile}% 的玩家
+プレーヤー: ${userName}
+順位: #${rank}
+レーティング: ${rating}
+上位: ${percentile}%
 
-#SuperTennis #网球排行 #运动`;
+#SuperTennis #テニスランキング #スポーツ`;
 }
 
 /**
- * 分享文本到社交平台
+ * テキストをSNSへ共有します
  */
 export async function shareText(content: string, title?: string): Promise<boolean> {
   try {
@@ -148,7 +148,7 @@ export async function shareText(content: string, title?: string): Promise<boolea
         title: title || 'SuperTennis',
       },
       {
-        dialogTitle: '分享到',
+        dialogTitle: '共有する',
       }
     );
 
@@ -160,31 +160,31 @@ export async function shareText(content: string, title?: string): Promise<boolea
 }
 
 /**
- * 分享比赛结果
+ * 試合結果を共有します
  */
 export async function shareMatchResult(data: MatchShareData): Promise<boolean> {
   const text = generateMatchResultText(data);
-  return shareText(text, '比赛结果');
+  return shareText(text, '試合結果');
 }
 
 /**
- * 分享成就
+ * 実績を共有します
  */
 export async function shareAchievement(data: AchievementShareData): Promise<boolean> {
   const text = generateAchievementText(data);
-  return shareText(text, '成就解锁');
+  return shareText(text, '実績を解除');
 }
 
 /**
- * 分享训练总结
+ * 練習サマリーを共有します
  */
 export async function shareTraining(data: TrainingShareData): Promise<boolean> {
   const text = generateTrainingText(data);
-  return shareText(text, '训练完成');
+  return shareText(text, '練習完了');
 }
 
 /**
- * 分享排行榜
+ * ランキングを共有します
  */
 export async function shareLeaderboard(
   rank: number,
@@ -193,16 +193,16 @@ export async function shareLeaderboard(
   percentile: number
 ): Promise<boolean> {
   const text = generateLeaderboardText(rank, rating, userName, percentile);
-  return shareText(text, '排行榜');
+  return shareText(text, 'ランキング');
 }
 
 /**
- * 生成海报 SVG 模板（比赛结果）
+ * 試合結果のSVG共有カードを生成します
  */
 export function generateMatchPosterSvg(data: MatchShareData): string {
   const winnerName = data.winner === 1 ? data.player1Name : data.player2Name;
   const sets = data.player1Sets.map((s, i) => `${s}-${data.player2Sets[i]}`).join('  ');
-  const dateStr = data.date.toLocaleDateString('zh-CN');
+  const dateStr = data.date.toLocaleDateString('ja-JP');
 
   return `
 <svg width="400" height="600" xmlns="http://www.w3.org/2000/svg">
@@ -224,7 +224,7 @@ export function generateMatchPosterSvg(data: MatchShareData): string {
   </text>
 
   <text x="200" y="240" text-anchor="middle" fill="white" font-size="28" font-weight="bold">
-    ${winnerName} 获胜！
+    ${winnerName} の勝利！
   </text>
 
   <text x="200" y="320" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="20">
@@ -238,17 +238,17 @@ export function generateMatchPosterSvg(data: MatchShareData): string {
   </text>
 
   <text x="200" y="480" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="16">
-    ${dateStr} · ${data.matchType === 'singles' ? '单打' : '双打'}
+    ${dateStr} · ${data.matchType === 'singles' ? 'シングルス' : 'ダブルス'}
   </text>
 
   <text x="200" y="560" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="12">
-    SuperTennis - 你的网球伙伴
+    SuperTennis - あなたのテニスパートナー
   </text>
 </svg>`;
 }
 
 /**
- * 生成海报 SVG 模板（成就）
+ * 実績のSVG共有カードを生成します
  */
 export function generateAchievementPosterSvg(data: AchievementShareData): string {
   return `
@@ -271,7 +271,7 @@ export function generateAchievementPosterSvg(data: AchievementShareData): string
   </text>
 
   <text x="200" y="260" text-anchor="middle" fill="#1F2937" font-size="24" font-weight="bold">
-    成就解锁！
+    実績を解除！
   </text>
 
   <text x="200" y="310" text-anchor="middle" fill="#1F2937" font-size="20" font-weight="600">
@@ -287,7 +287,7 @@ export function generateAchievementPosterSvg(data: AchievementShareData): string
   </text>
 
   <text x="200" y="470" text-anchor="middle" fill="rgba(31,41,55,0.4)" font-size="12">
-    SuperTennis - 你的网球伙伴
+    SuperTennis - あなたのテニスパートナー
   </text>
 </svg>`;
 }

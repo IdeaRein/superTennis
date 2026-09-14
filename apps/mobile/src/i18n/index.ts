@@ -1,6 +1,6 @@
 /**
- * 国际化 (i18n) 模块
- * 支持中英文切换
+ * 国際化（i18n）モジュール
+ * 日本語と英語の切替をサポートします
  */
 
 import { getLocales } from 'expo-localization';
@@ -8,28 +8,28 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import zh from './locales/zh';
+import ja from './locales/ja';
 import en from './locales/en';
 
 // 支持的语言
-export type Locale = 'zh' | 'en';
+export type Locale = 'ja' | 'en';
 
 // 语言包类型
-export type Translations = typeof zh;
+export type Translations = typeof ja;
 
 // 语言包映射
 const translations: Record<Locale, Translations> = {
-  zh,
+  ja,
   en,
 };
 
-// 获取设备默认语言
+// 端末の標準言語を取得
 function getDeviceLocale(): Locale {
   const locales = getLocales();
   const deviceLanguage = locales[0]?.languageCode;
 
-  if (deviceLanguage === 'zh') {
-    return 'zh';
+  if (deviceLanguage === 'ja') {
+    return 'ja';
   }
   return 'en';
 }
@@ -64,14 +64,14 @@ export function useTranslation() {
     t,
     locale,
     setLocale,
-    isZh: locale === 'zh',
+    isJa: locale === 'ja',
     isEn: locale === 'en',
   };
 }
 
 /**
- * 格式化带参数的翻译
- * 例如: formatMessage('Hello {{name}}', { name: 'World' }) => 'Hello World'
+ * パラメーターを含む翻訳文を整形します
+ * 例: formatMessage('こんにちは、{{name}}さん', { name: 'World' }) => 'こんにちは、Worldさん'
  */
 export function formatMessage(template: string, params: Record<string, string | number>): string {
   return Object.entries(params).reduce(
@@ -81,7 +81,7 @@ export function formatMessage(template: string, params: Record<string, string | 
 }
 
 /**
- * 获取翻译文本（非 Hook 版本，用于非组件场景）
+ * 翻訳文を取得します（コンポーネント外でも利用可能）
  */
 export function getTranslations(locale?: Locale): Translations {
   const currentLocale = locale || useI18nStore.getState().locale;
@@ -89,10 +89,10 @@ export function getTranslations(locale?: Locale): Translations {
 }
 
 /**
- * 语言名称映射
+ * 言語名の対応表
  */
 export const localeNames: Record<Locale, string> = {
-  zh: '中文',
+  ja: '日本語',
   en: 'English',
 };
 

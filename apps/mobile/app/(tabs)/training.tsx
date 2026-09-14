@@ -206,7 +206,7 @@ export default function TrainingScreen() {
                     <View style={styles.sessionInfo}>
                       <Text style={styles.sessionName}>{typeInfo?.name}</Text>
                       <Text style={styles.sessionDate}>
-                        {date.toLocaleDateString('zh-CN')} · {formatDuration(session.duration)}
+                        {date.toLocaleDateString('ja-JP')} · {formatDuration(session.duration)}
                       </Text>
                     </View>
                     <View style={styles.sessionResult}>

@@ -50,7 +50,7 @@ export default function MatchesScreen() {
   // 格式化日期
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('zh-CN', {
+    return date.toLocaleDateString('ja-JP', {
       month: 'numeric',
       day: 'numeric',
       hour: '2-digit',

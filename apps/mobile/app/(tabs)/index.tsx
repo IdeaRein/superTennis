@@ -57,7 +57,7 @@ export default function HomeScreen() {
     if (diffDays === 0) return '今天';
     if (diffDays === 1) return '昨天';
     if (diffDays < 7) return `${diffDays}天前`;
-    return date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+    return date.toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' });
   };
 
   return (

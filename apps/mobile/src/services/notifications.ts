@@ -4,7 +4,7 @@ import * as Device from 'expo-device';
 import { Platform } from 'react-native';
 import { notificationsApi } from './api';
 
-// 配置通知处理方式
+// 通知の表示方法を設定
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -15,17 +15,17 @@ Notifications.setNotificationHandler({
   }),
 });
 
-// 注册推送通知
+// プッシュ通知を登録
 export async function registerForPushNotificationsAsync(userId: string): Promise<string | null> {
   let token: string | null = null;
 
-  // 检查是否是真机（推送通知只在真机上工作）
+  // プッシュ通知は実機でのみ利用可能
   if (!Device.isDevice) {
     console.log('Push notifications only work on physical devices');
     return null;
   }
 
-  // 检查并请求权限
+  // 権限を確認してリクエスト
   const { status: existingStatus } = await Notifications.getPermissionsAsync();
   let finalStatus = existingStatus;
 
@@ -39,14 +39,14 @@ export async function registerForPushNotificationsAsync(userId: string): Promise
     return null;
   }
 
-  // 获取推送 token
+  // プッシュトークンを取得
   try {
     const tokenData = await Notifications.getExpoPushTokenAsync({
-      projectId: 'your-project-id', // 需要替换为实际的 Expo 项目 ID
+      projectId: 'your-project-id', // 実際のExpoプロジェクトIDに置き換える
     });
     token = tokenData.data;
 
-    // 注册到服务器
+    // サーバーへ登録
     await notificationsApi.registerPushToken(userId, token, Platform.OS);
 
     console.log('Push token registered:', token);
@@ -54,7 +54,7 @@ export async function registerForPushNotificationsAsync(userId: string): Promise
     console.error('Error getting push token:', error);
   }
 
-  // Android 需要设置通知频道
+  // Androidでは通知チャンネルを設定
   if (Platform.OS === 'android') {
     await Notifications.setNotificationChannelAsync('default', {
       name: 'default',
@@ -67,7 +67,7 @@ export async function registerForPushNotificationsAsync(userId: string): Promise
   return token;
 }
 
-// 发送本地通知
+// ローカル通知を送信
 export async function sendLocalNotification(
   title: string,
   body: string,
@@ -80,18 +80,18 @@ export async function sendLocalNotification(
       data,
       sound: true,
     },
-    trigger: null, // 立即发送
+    trigger: null, // 直ちに送信
   });
 }
 
-// 发送比赛提醒通知
+// 試合リマインダーを送信
 export async function scheduleMatchReminder(
   matchId: string,
   matchTime: Date,
   opponentName: string,
   location?: string
 ) {
-  // 提前30分钟提醒
+  // 30分前に通知
   const reminderTime = new Date(matchTime.getTime() - 30 * 60 * 1000);
 
   if (reminderTime <= new Date()) {
@@ -101,8 +101,8 @@ export async function scheduleMatchReminder(
 
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: '比赛提醒',
-      body: `30分钟后与 ${opponentName} 的比赛即将开始${location ? `，地点：${location}` : ''}`,
+      title: '試合リマインダー',
+      body: `${opponentName}さんとの試合が30分後に始まります${location ? `（場所: ${location}）` : ''}`,
       data: { matchId, type: 'match_reminder' },
       sound: true,
     },
@@ -112,39 +112,39 @@ export async function scheduleMatchReminder(
   console.log('Match reminder scheduled for:', reminderTime);
 }
 
-// 取消所有通知
+// すべての通知をキャンセル
 export async function cancelAllNotifications() {
   await Notifications.cancelAllScheduledNotificationsAsync();
 }
 
-// 取消特定通知
+// 指定した通知をキャンセル
 export async function cancelNotification(notificationId: string) {
   await Notifications.cancelScheduledNotificationAsync(notificationId);
 }
 
-// 获取所有已排程的通知
+// 予定済みの通知をすべて取得
 export async function getScheduledNotifications() {
   return await Notifications.getAllScheduledNotificationsAsync();
 }
 
-// 设置角标数量
+// バッジ数を設定
 export async function setBadgeCount(count: number) {
   await Notifications.setBadgeCountAsync(count);
 }
 
-// 清除角标
+// バッジを消去
 export async function clearBadge() {
   await Notifications.setBadgeCountAsync(0);
 }
 
-// 添加通知点击监听器
+// 通知タップのリスナーを追加
 export function addNotificationResponseReceivedListener(
   callback: (response: Notifications.NotificationResponse) => void
 ) {
   return Notifications.addNotificationResponseReceivedListener(callback);
 }
 
-// 添加通知接收监听器
+// 通知受信のリスナーを追加
 export function addNotificationReceivedListener(
   callback: (notification: Notifications.Notification) => void
 ) {
