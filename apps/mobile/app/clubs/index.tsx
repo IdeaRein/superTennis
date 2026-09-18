@@ -122,7 +122,7 @@ export default function ClubsScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: '俱乐部',
+          title: 'クラブ',
           headerRight: () => (
             <TouchableOpacity onPress={() => router.push('/clubs/create')}>
               <Text style={styles.createButton}>创建</Text>

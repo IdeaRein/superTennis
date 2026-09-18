@@ -179,7 +179,7 @@ export default function FriendsScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: '我的好友',
+          title: '友だち',
         }}
       />
       <SafeAreaView style={styles.container} edges={['bottom']}>

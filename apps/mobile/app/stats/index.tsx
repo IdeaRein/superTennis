@@ -169,7 +169,7 @@ export default function StatsScreen() {
   if (loading) {
     return (
       <>
-        <Stack.Screen options={{ headerShown: true, title: '我的数据' }} />
+        <Stack.Screen options={{ headerShown: true, title: '自分のデータ' }} />
         <SafeAreaView style={styles.container} edges={['bottom']}>
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color="#10B981" />
@@ -181,7 +181,7 @@ export default function StatsScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ headerShown: true, title: '我的数据' }} />
+      <Stack.Screen options={{ headerShown: true, title: '自分のデータ' }} />
       <SafeAreaView style={styles.container} edges={['bottom']}>
         <ScrollView
           style={styles.scrollView}

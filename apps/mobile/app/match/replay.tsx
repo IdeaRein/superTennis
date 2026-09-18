@@ -123,7 +123,7 @@ export default function ReplayScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: '争议回放',
+          title: '判定リプレイ',
           presentation: 'modal',
         }}
       />

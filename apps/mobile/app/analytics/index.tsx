@@ -77,7 +77,7 @@ export default function AnalyticsScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: '数据分析',
+          title: 'データ分析',
         }}
       />
       <SafeAreaView style={styles.container} edges={['bottom']}>

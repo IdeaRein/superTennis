@@ -128,7 +128,7 @@ export default function HighlightsScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ headerShown: true, title: '精彩集锦' }} />
+      <Stack.Screen options={{ headerShown: true, title: 'ハイライト' }} />
       <SafeAreaView style={styles.container} edges={['bottom']}>
         {loading ? (
           <View style={styles.loadingContainer}>

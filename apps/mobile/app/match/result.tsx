@@ -6,28 +6,28 @@ import { useMatchStore } from '../../src/stores/matchStore';
 export default function ResultScreen() {
   const { settings, score, duration, resetMatch } = useMatchStore();
 
-  const player1Name = settings.player1Name || '你';
-  const player2Name = settings.player2Name || '对手';
+  const player1Name = settings.player1Name || '自分';
+  const player2Name = settings.player2Name || '対戦相手';
   const isPlayer1Winner = score.winner === 1;
   const winnerName = isPlayer1Winner ? player1Name : player2Name;
 
-  // 格式化时长
+  // 時間を表示用に整形
   const formatDuration = (seconds: number) => {
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
     if (h > 0) {
-      return `${h}小时${m}分`;
+      return `${h}時間${m}分`;
     }
-    return `${m}分钟`;
+    return `${m}分`;
   };
 
-  // 计算总局数
+  // 総ゲーム数を計算
   const totalGames = score.player1Games.reduce(
     (sum, g, i) => sum + g + (score.player2Games[i] || 0),
     0
   );
 
-  // 格式化各盘比分
+  // セットスコアを表示用に整形
   const formatSetScores = () => {
     if (settings.setFormat === 'tiebreak10') {
       return `${score.player1Points} - ${score.player2Points}`;
@@ -43,13 +43,13 @@ export default function ResultScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* 胜利提示 */}
+        {/* 勝者表示 */}
         <View style={styles.headerSection}>
           <Text style={styles.trophyIcon}>🏆</Text>
-          <Text style={styles.congratsText}>{winnerName} 获胜!</Text>
+          <Text style={styles.congratsText}>{winnerName} の勝利！</Text>
         </View>
 
-        {/* 比分卡片 */}
+        {/* スコア */}
         <View style={styles.scoreCard}>
           <View style={styles.playerRow}>
             <View style={styles.playerInfo}>
@@ -75,7 +75,7 @@ export default function ResultScreen() {
             </View>
             <View style={[styles.resultBadge, !isPlayer1Winner && styles.resultBadgeLose]}>
               <Text style={[styles.resultText, !isPlayer1Winner && styles.resultTextLose]}>
-                {isPlayer1Winner ? '胜' : '负'}
+                {isPlayer1Winner ? '勝' : '敗'}
               </Text>
             </View>
           </View>
@@ -106,40 +106,40 @@ export default function ResultScreen() {
             </View>
             <View style={[styles.resultBadge, isPlayer1Winner && styles.resultBadgeLose]}>
               <Text style={[styles.resultText, isPlayer1Winner && styles.resultTextLose]}>
-                {isPlayer1Winner ? '负' : '胜'}
+                {isPlayer1Winner ? '敗' : '勝'}
               </Text>
             </View>
           </View>
 
           <View style={styles.matchMeta}>
-            <Text style={styles.metaText}>比赛时长: {formatDuration(duration)}</Text>
+            <Text style={styles.metaText}>試合時間: {formatDuration(duration)}</Text>
             {settings.setFormat !== 'tiebreak10' && (
-              <Text style={styles.metaText}>总局数: {totalGames} 局</Text>
+              <Text style={styles.metaText}>総ゲーム数: {totalGames}ゲーム</Text>
             )}
           </View>
         </View>
 
-        {/* 快捷操作 */}
+        {/* 操作 */}
         <View style={styles.quickActions}>
           <TouchableOpacity style={styles.actionButton}>
             <Text style={styles.actionIcon}>📊</Text>
-            <Text style={styles.actionText}>详细统计</Text>
+            <Text style={styles.actionText}>詳細な統計</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.actionButton}>
             <Text style={styles.actionIcon}>📹</Text>
-            <Text style={styles.actionText}>回放精彩球</Text>
+            <Text style={styles.actionText}>ハイライトを再生</Text>
           </TouchableOpacity>
         </View>
 
-        {/* 分享按钮 */}
+        {/* 共有 */}
         <TouchableOpacity style={styles.shareButton}>
           <Text style={styles.shareButtonIcon}>📤</Text>
-          <Text style={styles.shareButtonText}>生成海报并分享</Text>
+          <Text style={styles.shareButtonText}>画像を作成して共有</Text>
         </TouchableOpacity>
 
-        {/* 返回首页 */}
+        {/* ホームへ戻る */}
         <TouchableOpacity style={styles.homeButton} onPress={handleGoHome}>
-          <Text style={styles.homeButtonText}>返回首页</Text>
+          <Text style={styles.homeButtonText}>ホームへ戻る</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>

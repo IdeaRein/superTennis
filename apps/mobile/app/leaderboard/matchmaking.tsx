@@ -140,7 +140,7 @@ export default function MatchmakingScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: '匹配对手',
+          title: '対戦相手を探す',
           presentation: 'modal',
         }}
       />

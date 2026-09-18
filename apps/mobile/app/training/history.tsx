@@ -159,7 +159,7 @@ export default function TrainingHistoryScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: '训练统计',
+          title: '練習統計',
         }}
       />
       <SafeAreaView style={styles.container} edges={['bottom']}>

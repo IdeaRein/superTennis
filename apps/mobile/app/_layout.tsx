@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { useAuthStore } from '../src/stores/authStore';
 
-// 防止 splash screen 自动隐藏
+// スプラッシュ画面の自動非表示を防ぐ
 SplashScreen.preventAutoHideAsync();
 
 function useProtectedRoute(isAuthenticated: boolean, isLoading: boolean) {
@@ -16,13 +16,13 @@ function useProtectedRoute(isAuthenticated: boolean, isLoading: boolean) {
 
     const inAuthGroup = segments[0] === 'login';
 
-    // 使用 setTimeout 确保在导航准备好后再跳转
+    // ナビゲーションの準備完了後に画面遷移する
     const timer = setTimeout(() => {
       if (!isAuthenticated && !inAuthGroup) {
-        // 未登录且不在登录页，跳转到登录页
+        // 未ログイン時はログイン画面へ遷移する
         router.replace('/login');
       } else if (isAuthenticated && inAuthGroup) {
-        // 已登录但在登录页，跳转到首页
+        // ログイン済みならホーム画面へ遷移する
         router.replace('/(tabs)');
       }
     }, 0);
@@ -75,7 +75,7 @@ export default function RootLayout() {
             name="match/setup"
             options={{
               headerShown: true,
-              title: '新建比赛',
+              title: '試合を作成',
               presentation: 'modal',
             }}
           />
@@ -83,7 +83,7 @@ export default function RootLayout() {
             name="match/calibration"
             options={{
               headerShown: true,
-              title: '球场校准',
+              title: 'コートのキャリブレーション',
             }}
           />
           <Stack.Screen
@@ -97,7 +97,7 @@ export default function RootLayout() {
             name="match/replay"
             options={{
               headerShown: true,
-              title: '争议回放',
+              title: '判定リプレイ',
               presentation: 'modal',
             }}
           />
@@ -105,7 +105,7 @@ export default function RootLayout() {
             name="match/result"
             options={{
               headerShown: true,
-              title: '比赛结束',
+              title: '試合終了',
             }}
           />
         </Stack>

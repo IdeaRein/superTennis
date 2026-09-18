@@ -21,12 +21,12 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     if (!phone.trim()) {
-      Alert.alert('提示', '请输入手机号');
+      Alert.alert('入力エラー', '電話番号を入力してください');
       return;
     }
 
     if (phone.length !== 11) {
-      Alert.alert('提示', '请输入正确的手机号');
+      Alert.alert('入力エラー', '正しい電話番号を入力してください');
       return;
     }
 
@@ -37,7 +37,7 @@ export default function LoginScreen() {
     if (success) {
       router.replace('/(tabs)');
     } else {
-      Alert.alert('登录失败', '请检查网络连接后重试');
+      Alert.alert('ログイン失敗', 'ネットワーク接続を確認して、もう一度お試しください');
     }
   };
 
@@ -50,18 +50,18 @@ export default function LoginScreen() {
         {/* Logo */}
         <View style={styles.logoSection}>
           <Text style={styles.logoIcon}>🎾</Text>
-          <Text style={styles.logoText}>超级网球</Text>
-          <Text style={styles.logoSubtext}>记录每一场精彩对决</Text>
+          <Text style={styles.logoText}>Super Tennis</Text>
+          <Text style={styles.logoSubtext}>すべての素晴らしい試合を記録しよう</Text>
         </View>
 
-        {/* 登录表单 */}
+        {/* ログインフォーム */}
         <View style={styles.formSection}>
-          <Text style={styles.inputLabel}>手机号</Text>
+          <Text style={styles.inputLabel}>電話番号</Text>
           <View style={styles.inputContainer}>
             <Text style={styles.inputPrefix}>+86</Text>
             <TextInput
               style={styles.input}
-              placeholder="请输入手机号"
+              placeholder="電話番号を入力"
               placeholderTextColor="#9CA3AF"
               keyboardType="phone-pad"
               maxLength={11}
@@ -70,11 +70,11 @@ export default function LoginScreen() {
             />
           </View>
 
-          <Text style={styles.inputLabel}>昵称 (可选)</Text>
+          <Text style={styles.inputLabel}>表示名（任意）</Text>
           <View style={styles.inputContainer}>
             <TextInput
               style={[styles.input, styles.inputFull]}
-              placeholder="给自己起个名字"
+              placeholder="表示名を入力"
               placeholderTextColor="#9CA3AF"
               maxLength={20}
               value={name}
@@ -87,17 +87,17 @@ export default function LoginScreen() {
             onPress={handleLogin}
             disabled={isLoading}
           >
-            <Text style={styles.loginButtonText}>{isLoading ? '登录中...' : '登录 / 注册'}</Text>
+            <Text style={styles.loginButtonText}>{isLoading ? 'ログイン中...' : 'ログイン / 登録'}</Text>
           </TouchableOpacity>
 
-          <Text style={styles.hint}>首次登录将自动创建账号</Text>
+          <Text style={styles.hint}>初回ログイン時にアカウントを自動作成します</Text>
         </View>
 
-        {/* 底部协议 */}
+        {/* 規約 */}
         <View style={styles.footer}>
           <Text style={styles.footerText}>
-            登录即表示同意 <Text style={styles.footerLink}>用户协议</Text> 和{' '}
-            <Text style={styles.footerLink}>隐私政策</Text>
+            ログインすると <Text style={styles.footerLink}>利用規約</Text> と{' '}
+            <Text style={styles.footerLink}>プライバシーポリシー</Text> に同意したものとみなされます
           </Text>
         </View>
       </KeyboardAvoidingView>

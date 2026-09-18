@@ -54,7 +54,7 @@ export default function CreateClubScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: '创建俱乐部',
+          title: 'クラブを作成',
         }}
       />
       <SafeAreaView style={styles.container} edges={['bottom']}>

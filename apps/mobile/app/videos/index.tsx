@@ -108,7 +108,7 @@ export default function VideosScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ headerShown: true, title: '比赛录像' }} />
+      <Stack.Screen options={{ headerShown: true, title: '試合動画' }} />
       <SafeAreaView style={styles.container} edges={['bottom']}>
         {loading ? (
           <View style={styles.loadingContainer}>

@@ -186,7 +186,7 @@ export default function HawkEyeTestScreen() {
   if (!permission?.granted) {
     return (
       <SafeAreaView style={styles.container}>
-        <Stack.Screen options={{ headerShown: true, title: '鹰眼测试' }} />
+        <Stack.Screen options={{ headerShown: true, title: 'ホークアイテスト' }} />
         <View style={styles.permissionContainer}>
           <Text style={styles.permissionText}>需要摄像头权限来测试鹰眼功能</Text>
           <TouchableOpacity style={styles.button} onPress={requestPermission}>
@@ -202,7 +202,7 @@ export default function HawkEyeTestScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: '鹰眼测试',
+          title: 'ホークアイテスト',
           headerStyle: { backgroundColor: '#111827' },
           headerTintColor: '#fff',
         }}

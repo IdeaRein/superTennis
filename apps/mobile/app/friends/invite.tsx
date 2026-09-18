@@ -112,7 +112,7 @@ export default function InviteMatchScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: '邀请约战',
+          title: '試合に招待',
         }}
       />
       <SafeAreaView style={styles.container} edges={['bottom']}>

@@ -13,41 +13,41 @@ export default function MatchSetupScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* 比赛类型 */}
+        {/* 試合種目 */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>比赛类型</Text>
+          <Text style={styles.sectionTitle}>試合種目</Text>
           <View style={styles.optionRow}>
             <OptionButton
               selected={settings.matchType === 'singles'}
               onPress={() => setSettings({ matchType: 'singles' })}
-              label="单打"
+              label="シングルス"
             />
             <OptionButton
               selected={settings.matchType === 'doubles'}
               onPress={() => setSettings({ matchType: 'doubles' })}
-              label="双打"
+              label="ダブルス"
             />
           </View>
         </View>
 
-        {/* 赛制选择 */}
+        {/* 試合形式 */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>赛制选择</Text>
+          <Text style={styles.sectionTitle}>試合形式</Text>
           <View style={styles.optionRow}>
             <OptionButton
               selected={settings.setFormat === 'one'}
               onPress={() => setSettings({ setFormat: 'one' })}
-              label="一盘"
+              label="1セット"
             />
             <OptionButton
               selected={settings.setFormat === 'three'}
               onPress={() => setSettings({ setFormat: 'three' })}
-              label="三盘"
+              label="3セット"
             />
             <OptionButton
               selected={settings.setFormat === 'tiebreak10'}
               onPress={() => setSettings({ setFormat: 'tiebreak10' })}
-              label="抢十"
+              label="10ポイントTB"
             />
           </View>
 
@@ -55,38 +55,38 @@ export default function MatchSetupScreen() {
             <CheckboxItem
               checked={settings.useTiebreak}
               onPress={() => setSettings({ useTiebreak: !settings.useTiebreak })}
-              label="决胜盘抢七"
+              label="最終セットTB"
             />
             <CheckboxItem
               checked={settings.useAdvantage}
               onPress={() => setSettings({ useAdvantage: !settings.useAdvantage })}
-              label="占先制"
+              label="アドバンテージ制"
             />
           </View>
         </View>
 
-        {/* 球员信息 */}
+        {/* 選手情報 */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>球员信息</Text>
+          <Text style={styles.sectionTitle}>選手情報</Text>
 
-          <Text style={styles.inputLabel}>我（统计胜负将计入此人）</Text>
+          <Text style={styles.inputLabel}>自分（戦績に反映されます）</Text>
           <View style={styles.inputContainer}>
             <Text style={styles.inputIcon}>🟢</Text>
             <TextInput
               style={styles.input}
-              placeholder="输入你的名字"
+              placeholder="自分の名前を入力"
               placeholderTextColor="#9CA3AF"
               value={settings.player1Name}
               onChangeText={(text) => setSettings({ player1Name: text })}
             />
           </View>
 
-          <Text style={styles.inputLabel}>对手</Text>
+          <Text style={styles.inputLabel}>対戦相手</Text>
           <View style={styles.inputContainer}>
             <Text style={styles.inputIcon}>🟣</Text>
             <TextInput
               style={styles.input}
-              placeholder="输入对手名字"
+              placeholder="対戦相手の名前を入力"
               placeholderTextColor="#9CA3AF"
               value={settings.player2Name}
               onChangeText={(text) => setSettings({ player2Name: text })}
@@ -94,28 +94,28 @@ export default function MatchSetupScreen() {
           </View>
         </View>
 
-        {/* 谁先发球 */}
+        {/* 最初のサーバー */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>谁先发球？</Text>
+          <Text style={styles.sectionTitle}>最初にサーブするのは？</Text>
           <View style={styles.optionRow}>
             <OptionButton
               selected={settings.firstServer === 1}
               onPress={() => setSettings({ firstServer: 1 })}
-              label="近端球员"
+              label="手前の選手"
             />
             <OptionButton
               selected={settings.firstServer === 2}
               onPress={() => setSettings({ firstServer: 2 })}
-              label="远端球员"
+              label="奥の選手"
             />
           </View>
         </View>
       </ScrollView>
 
-      {/* 底部按钮 */}
+      {/* 次へ */}
       <View style={styles.bottomBar}>
         <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-          <Text style={styles.nextButtonText}>下一步：架设手机</Text>
+          <Text style={styles.nextButtonText}>次へ：スマートフォンを設置</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
