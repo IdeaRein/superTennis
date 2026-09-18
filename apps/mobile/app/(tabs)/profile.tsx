@@ -72,10 +72,10 @@ export default function ProfileScreen() {
   }, [calculateStats]);
 
   const handleLogout = () => {
-    Alert.alert('退出登录', '确定要退出登录吗？', [
-      { text: '取消', style: 'cancel' },
+    Alert.alert('ログアウト', 'ログアウトしますか？', [
+      { text: 'キャンセル', style: 'cancel' },
       {
-        text: '退出',
+        text: 'ログアウト',
         style: 'destructive',
         onPress: () => logout(),
       },
@@ -91,14 +91,14 @@ export default function ProfileScreen() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#10B981" />
         }
       >
-        {/* 用户信息卡片 */}
+        {/* ユーザー情報 */}
         <View style={styles.profileCard}>
           <View style={styles.avatarContainer}>
             <Text style={styles.avatar}>👤</Text>
           </View>
-          <Text style={styles.userName}>{user?.name || '网球爱好者'}</Text>
+          <Text style={styles.userName}>{user?.name || 'テニス愛好家'}</Text>
           <Text style={styles.userLevel}>
-            水平 {user?.level?.toFixed(1) || '3.5'} · Rating {user?.rating || 1200}
+            レベル {user?.level?.toFixed(1) || '3.5'} · ポイント {user?.rating || 1200}
           </Text>
 
           <View style={styles.statsRow}>
@@ -108,7 +108,7 @@ export default function ProfileScreen() {
               ) : (
                 <Text style={styles.statValue}>{stats.totalMatches}</Text>
               )}
-              <Text style={styles.statLabel}>总场次</Text>
+              <Text style={styles.statLabel}>試合数</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
@@ -117,7 +117,7 @@ export default function ProfileScreen() {
               ) : (
                 <Text style={styles.statValue}>{stats.wins}</Text>
               )}
-              <Text style={styles.statLabel}>胜场</Text>
+              <Text style={styles.statLabel}>勝利数</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
@@ -126,38 +126,38 @@ export default function ProfileScreen() {
               ) : (
                 <Text style={styles.statValue}>{stats.winRate}</Text>
               )}
-              <Text style={styles.statLabel}>胜率</Text>
+              <Text style={styles.statLabel}>勝率</Text>
             </View>
           </View>
         </View>
 
-        {/* 菜单列表 */}
+        {/* メニュー */}
         <View style={styles.menuSection}>
-          <MenuItem icon="📊" title="我的数据" onPress={() => router.push('/stats')} />
-          <MenuItem icon="📹" title="比赛录像" onPress={() => router.push('/videos')} />
-          <MenuItem icon="⭐" title="精彩集锦" onPress={() => router.push('/highlights')} />
-          <MenuItem icon="👥" title="我的好友" onPress={() => router.push('/friends')} />
+          <MenuItem icon="📊" title="自分のデータ" onPress={() => router.push('/stats')} />
+          <MenuItem icon="📹" title="試合動画" onPress={() => router.push('/videos')} />
+          <MenuItem icon="⭐" title="ハイライト" onPress={() => router.push('/highlights')} />
+          <MenuItem icon="👥" title="友だち" onPress={() => router.push('/friends')} />
           <MenuItem
             icon="🔔"
-            title="通知消息"
+            title="通知"
             onPress={() => router.push('/notifications')}
             badge={unreadCount}
           />
         </View>
 
         <View style={styles.menuSection}>
-          <MenuItem icon="📱" title="设备管理" />
-          <MenuItem icon="⚙️" title="设置" />
-          <MenuItem icon="❓" title="帮助与反馈" />
+          <MenuItem icon="📱" title="デバイス管理" />
+          <MenuItem icon="⚙️" title="設定" />
+          <MenuItem icon="❓" title="ヘルプとフィードバック" />
         </View>
 
-        {/* 退出登录 */}
+        {/* ログアウト */}
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <Text style={styles.logoutText}>退出登录</Text>
+          <Text style={styles.logoutText}>ログアウト</Text>
         </TouchableOpacity>
 
-        {/* 版本信息 */}
-        <Text style={styles.versionText}>超级网球 v0.1.0</Text>
+        {/* バージョン情報 */}
+        <Text style={styles.versionText}>Super Tennis v0.1.0</Text>
       </ScrollView>
     </SafeAreaView>
   );

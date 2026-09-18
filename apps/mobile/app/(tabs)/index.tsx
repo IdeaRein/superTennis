@@ -22,10 +22,10 @@ export default function HomeScreen() {
     try {
       setError(null);
       const matches = await matchApi.getAll();
-      // 只显示最近3场
+      // 直近3試合のみを表示
       setRecentMatches(matches.slice(0, 3));
     } catch (err) {
-      setError('无法加载比赛数据');
+      setError('試合データを読み込めません');
       console.error('Failed to fetch matches:', err);
     } finally {
       setLoading(false);
@@ -42,21 +42,21 @@ export default function HomeScreen() {
     fetchRecentMatches();
   }, [fetchRecentMatches]);
 
-  // 格式化比分显示
+  // スコアを表示用に整形
   const formatScore = (match: Match) => {
     if (match.player1Sets.length === 0) return '0-0';
     return match.player1Sets.map((s, i) => `${s}-${match.player2Sets[i] ?? 0}`).join(' ');
   };
 
-  // 格式化日期
+  // 日付を表示用に整形
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     const now = new Date();
     const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
 
-    if (diffDays === 0) return '今天';
-    if (diffDays === 1) return '昨天';
-    if (diffDays < 7) return `${diffDays}天前`;
+    if (diffDays === 0) return '今日';
+    if (diffDays === 1) return '昨日';
+    if (diffDays < 7) return `${diffDays}日前`;
     return date.toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' });
   };
 
@@ -69,24 +69,24 @@ export default function HomeScreen() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#10B981" />
         }
       >
-        {/* 开始比赛按钮 */}
+        {/* 試合開始ボタン */}
         <View style={styles.heroSection}>
           <Link href="/match/setup" asChild>
             <TouchableOpacity style={styles.startButton}>
               <Text style={styles.startButtonIcon}>🎾</Text>
-              <Text style={styles.startButtonText}>开始比赛</Text>
-              <Text style={styles.startButtonSubtext}>记录你的精彩对决</Text>
+              <Text style={styles.startButtonText}>試合を開始</Text>
+              <Text style={styles.startButtonSubtext}>試合を記録しましょう</Text>
             </TouchableOpacity>
           </Link>
         </View>
 
-        {/* 最近比赛 */}
+        {/* 最近の試合 */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>最近比赛</Text>
+            <Text style={styles.sectionTitle}>最近の試合</Text>
             <Link href="/matches" asChild>
               <TouchableOpacity>
-                <Text style={styles.sectionLink}>查看全部 &gt;</Text>
+                <Text style={styles.sectionLink}>すべて見る &gt;</Text>
               </TouchableOpacity>
             </Link>
           </View>
@@ -99,13 +99,13 @@ export default function HomeScreen() {
             <TouchableOpacity style={styles.errorState} onPress={fetchRecentMatches}>
               <Text style={styles.errorIcon}>⚠️</Text>
               <Text style={styles.errorText}>{error}</Text>
-              <Text style={styles.errorSubtext}>点击重试</Text>
+              <Text style={styles.errorSubtext}>タップして再試行</Text>
             </TouchableOpacity>
           ) : recentMatches.length === 0 ? (
             <View style={styles.emptyState}>
               <Text style={styles.emptyIcon}>🎾</Text>
-              <Text style={styles.emptyText}>还没有比赛记录</Text>
-              <Text style={styles.emptySubtext}>开始你的第一场比赛吧！</Text>
+              <Text style={styles.emptyText}>試合履歴はありません</Text>
+              <Text style={styles.emptySubtext}>最初の試合を始めましょう！</Text>
             </View>
           ) : (
             <View style={styles.matchList}>
@@ -125,7 +125,7 @@ export default function HomeScreen() {
                     <View style={styles.matchMeta}>
                       {match.isFinished && match.winner && (
                         <Text style={styles.matchWinner}>
-                          {match.winner === 1 ? match.player1Name : match.player2Name} 胜
+                          {match.winner === 1 ? match.player1Name : match.player2Name} の勝利
                         </Text>
                       )}
                       <Text style={styles.matchDate}>{formatDate(match.createdAt)}</Text>
@@ -137,18 +137,18 @@ export default function HomeScreen() {
           )}
         </View>
 
-        {/* AI 演示模式 */}
+        {/* AIデモ */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>AI 功能</Text>
+            <Text style={styles.sectionTitle}>AI機能</Text>
           </View>
           <Link href="/demo" asChild>
             <TouchableOpacity style={styles.demoCard}>
               <View style={styles.demoCardLeft}>
                 <Text style={styles.demoCardIcon}>👁️</Text>
                 <View>
-                  <Text style={styles.demoCardTitle}>AI 演示模式</Text>
-                  <Text style={styles.demoCardDesc}>测试鹰眼判定和自动记分</Text>
+                  <Text style={styles.demoCardTitle}>AIデモモード</Text>
+                  <Text style={styles.demoCardDesc}>ホークアイ判定と自動採点を試す</Text>
                 </View>
               </View>
               <Text style={styles.demoCardArrow}>›</Text>
@@ -160,8 +160,8 @@ export default function HomeScreen() {
               <View style={styles.demoCardLeft}>
                 <Text style={styles.demoCardIcon}>🎯</Text>
                 <View>
-                  <Text style={styles.demoCardTitle}>鹰眼测试 (Beta)</Text>
-                  <Text style={styles.demoCardDesc}>VisionCamera + AI 实时检测</Text>
+                  <Text style={styles.demoCardTitle}>ホークアイテスト（ベータ）</Text>
+                  <Text style={styles.demoCardDesc}>VisionCamera + AIリアルタイム検出</Text>
                 </View>
               </View>
               <Text style={styles.demoCardArrow}>›</Text>
@@ -169,14 +169,14 @@ export default function HomeScreen() {
           </Link>
         </View>
 
-        {/* 俱乐部动态 */}
+        {/* クラブの最新情報 */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>俱乐部动态</Text>
+            <Text style={styles.sectionTitle}>クラブの最新情報</Text>
           </View>
           <View style={styles.clubCard}>
             <Text style={styles.clubCardIcon}>🔥</Text>
-            <Text style={styles.clubCardText}>加入俱乐部，和球友一起打球</Text>
+            <Text style={styles.clubCardText}>クラブに参加して仲間とテニスを楽しもう</Text>
           </View>
         </View>
       </ScrollView>

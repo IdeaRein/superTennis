@@ -20,9 +20,9 @@
     "expo-file-system": "~19.0.21",
     "expo-image-picker": "~17.0.10",
     "expo-linking": "~8.0.11",
+    "expo-localization": "~17.0.8",
     "expo-media-library": "~18.2.1",
     "expo-notifications": "~0.32.16",
-    "expo-localization": "~17.0.8",
     "expo-router": "~6.0.21",
     "expo-status-bar": "~3.0.9",
     "react": "19.1.0",
@@ -49,6 +49,7 @@
     "@babel/plugin-transform-template-literals": "^7.27.1",
     "@babel/preset-env": "^7.28.6",
     "@types/react": "~19.1.0",
+    "babel-preset-expo": "~54.0.12",
     "qrcode-terminal": "^0.12.0",
     "typescript": "~5.9.2"
   },

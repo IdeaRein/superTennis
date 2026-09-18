@@ -5,39 +5,39 @@ export default function ClubScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* 我的俱乐部 - 空状态 */}
+        {/* 自分のクラブ */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>我的俱乐部</Text>
+          <Text style={styles.sectionTitle}>自分のクラブ</Text>
           <View style={styles.emptyCard}>
             <Text style={styles.emptyIcon}>👥</Text>
-            <Text style={styles.emptyTitle}>还没有加入俱乐部</Text>
-            <Text style={styles.emptySubtitle}>加入俱乐部，与球友一起打球</Text>
+            <Text style={styles.emptyTitle}>まだクラブに参加していません</Text>
+            <Text style={styles.emptySubtitle}>クラブに参加して仲間とテニスを楽しもう</Text>
             <TouchableOpacity style={styles.joinButton}>
-              <Text style={styles.joinButtonText}>探索俱乐部</Text>
+              <Text style={styles.joinButtonText}>クラブを探す</Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        {/* 发现俱乐部 */}
+        {/* クラブを探す */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>发现俱乐部</Text>
+            <Text style={styles.sectionTitle}>おすすめのクラブ</Text>
             <TouchableOpacity>
-              <Text style={styles.sectionLink}>查看更多 &gt;</Text>
+              <Text style={styles.sectionLink}>すべて見る &gt;</Text>
             </TouchableOpacity>
           </View>
 
-          {/* 推荐俱乐部卡片 */}
+          {/* おすすめクラブ */}
           <View style={styles.clubCard}>
             <View style={styles.clubInfo}>
               <Text style={styles.clubIcon}>🎾</Text>
               <View style={styles.clubDetails}>
-                <Text style={styles.clubName}>阳光网球俱乐部</Text>
+                <Text style={styles.clubName}>サンシャインテニスクラブ</Text>
                 <Text style={styles.clubMeta}>⭐ 4.8 · 326人</Text>
               </View>
             </View>
             <TouchableOpacity style={styles.joinSmallButton}>
-              <Text style={styles.joinSmallButtonText}>加入</Text>
+              <Text style={styles.joinSmallButtonText}>参加</Text>
             </TouchableOpacity>
           </View>
 
@@ -45,23 +45,23 @@ export default function ClubScreen() {
             <View style={styles.clubInfo}>
               <Text style={styles.clubIcon}>🏸</Text>
               <View style={styles.clubDetails}>
-                <Text style={styles.clubName}>CBD 网球联盟</Text>
+                <Text style={styles.clubName}>CBDテニスリーグ</Text>
                 <Text style={styles.clubMeta}>⭐ 4.6 · 198人</Text>
               </View>
             </View>
             <TouchableOpacity style={styles.joinSmallButton}>
-              <Text style={styles.joinSmallButtonText}>加入</Text>
+              <Text style={styles.joinSmallButtonText}>参加</Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        {/* 约球大厅预告 */}
+        {/* 対戦募集 */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>约球大厅</Text>
+          <Text style={styles.sectionTitle}>対戦募集</Text>
           <View style={styles.comingSoonCard}>
             <Text style={styles.comingSoonIcon}>🚀</Text>
-            <Text style={styles.comingSoonText}>即将上线</Text>
-            <Text style={styles.comingSoonSubtext}>发布约球，找到你的对手</Text>
+            <Text style={styles.comingSoonText}>近日公開予定</Text>
+            <Text style={styles.comingSoonSubtext}>対戦を募集して相手を見つけよう</Text>
           </View>
         </View>
       </ScrollView>

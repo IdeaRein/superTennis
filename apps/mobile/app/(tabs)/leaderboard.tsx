@@ -100,14 +100,14 @@ export default function LeaderboardScreen() {
 
         <View style={styles.playerInfo}>
           <Text style={[styles.playerName, isMe && styles.playerNameMe]}>
-            {item.name} {isMe && '(我)'}
+            {item.name} {isMe && '(自分)'}
           </Text>
-          <Text style={styles.playerLevel}>水平 {item.level.toFixed(1)}</Text>
+          <Text style={styles.playerLevel}>レベル {item.level.toFixed(1)}</Text>
         </View>
 
         <View style={styles.ratingContainer}>
           <Text style={styles.ratingValue}>{item.rating}</Text>
-          <Text style={styles.ratingLabel}>积分</Text>
+          <Text style={styles.ratingLabel}>ポイント</Text>
         </View>
       </TouchableOpacity>
     );
@@ -118,7 +118,7 @@ export default function LeaderboardScreen() {
       <SafeAreaView style={styles.container} edges={['top']}>
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#10B981" />
-          <Text style={styles.loadingText}>加载排行榜...</Text>
+          <Text style={styles.loadingText}>ランキングを読み込み中...</Text>
         </View>
       </SafeAreaView>
     );
@@ -126,38 +126,38 @@ export default function LeaderboardScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      {/* 头部 */}
+      {/* ヘッダー */}
       <View style={styles.header}>
-        <Text style={styles.title}>排行榜</Text>
+        <Text style={styles.title}>ランキング</Text>
         <TouchableOpacity
           style={styles.matchButton}
           onPress={() => router.push('/leaderboard/matchmaking')}
         >
-          <Text style={styles.matchButtonText}>匹配对手</Text>
+          <Text style={styles.matchButtonText}>対戦相手を探す</Text>
         </TouchableOpacity>
       </View>
 
-      {/* 我的排名 */}
+      {/* 自分の順位 */}
       {userRank && (
         <View style={styles.myRankCard}>
           <View style={styles.myRankItem}>
             <Text style={styles.myRankValue}>#{userRank.rank}</Text>
-            <Text style={styles.myRankLabel}>我的排名</Text>
+            <Text style={styles.myRankLabel}>自分の順位</Text>
           </View>
           <View style={styles.myRankDivider} />
           <View style={styles.myRankItem}>
             <Text style={styles.myRankValue}>{userRank.percentile}%</Text>
-            <Text style={styles.myRankLabel}>超越玩家</Text>
+            <Text style={styles.myRankLabel}>上位割合</Text>
           </View>
           <View style={styles.myRankDivider} />
           <View style={styles.myRankItem}>
             <Text style={styles.myRankValue}>{user?.rating || 1200}</Text>
-            <Text style={styles.myRankLabel}>当前积分</Text>
+            <Text style={styles.myRankLabel}>現在のポイント</Text>
           </View>
         </View>
       )}
 
-      {/* 时间筛选 */}
+      {/* 期間の選択 */}
       <View style={styles.periodTabs}>
         {(['all', 'week', 'month'] as const).map((p) => (
           <TouchableOpacity
@@ -166,13 +166,13 @@ export default function LeaderboardScreen() {
             onPress={() => setPeriod(p)}
           >
             <Text style={[styles.periodTabText, period === p && styles.periodTabTextActive]}>
-              {p === 'all' ? '总榜' : p === 'week' ? '周榜' : '月榜'}
+              {p === 'all' ? '総合' : p === 'week' ? '週間' : '月間'}
             </Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      {/* 排行榜列表 */}
+      {/* ランキング一覧 */}
       <FlatList
         data={leaderboard}
         renderItem={renderItem}
@@ -182,7 +182,7 @@ export default function LeaderboardScreen() {
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyIcon}>🏆</Text>
-            <Text style={styles.emptyText}>暂无排名数据</Text>
+            <Text style={styles.emptyText}>ランキングデータはありません</Text>
           </View>
         }
       />

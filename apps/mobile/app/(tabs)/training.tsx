@@ -16,21 +16,21 @@ import { useAuthStore } from '../../src/stores/authStore';
 const TRAINING_TYPES = [
   {
     id: 'serve',
-    name: '发球练习',
+    name: 'サーブ練習',
     icon: '🎾',
     color: '#EF4444',
-    description: '提高发球速度和准确性',
+    description: 'サーブの速さと正確さを高める',
   },
   {
     id: 'forehand',
-    name: '正手击球',
+    name: 'フォアハンド',
     icon: '💪',
     color: '#F59E0B',
-    description: '强化正手进攻能力',
+    description: 'フォアハンドの攻撃力を強化する',
   },
-  { id: 'backhand', name: '反手击球', icon: '🏃', color: '#10B981', description: '提升反手稳定性' },
-  { id: 'volley', name: '网前截击', icon: '⚡', color: '#3B82F6', description: '练习网前技术' },
-  { id: 'rally', name: '底线对抗', icon: '🔄', color: '#8B5CF6', description: '增强底线相持能力' },
+  { id: 'backhand', name: 'バックハンド', icon: '🏃', color: '#10B981', description: 'バックハンドの安定性を高める' },
+  { id: 'volley', name: 'ボレー', icon: '⚡', color: '#3B82F6', description: 'ネットプレーを練習する' },
+  { id: 'rally', name: 'ベースラインラリー', icon: '🔄', color: '#8B5CF6', description: 'ラリーの持久力を高める' },
 ];
 
 export default function TrainingScreen() {
@@ -75,9 +75,9 @@ export default function TrainingScreen() {
     const mins = Math.floor(seconds / 60);
     const hours = Math.floor(mins / 60);
     if (hours > 0) {
-      return `${hours}小时${mins % 60}分`;
+      return `${hours}時間${mins % 60}分`;
     }
-    return `${mins}分钟`;
+    return `${mins}分`;
   };
 
   if (loading) {
@@ -85,7 +85,7 @@ export default function TrainingScreen() {
       <SafeAreaView style={styles.container} edges={['top']}>
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#10B981" />
-          <Text style={styles.loadingText}>加载训练数据...</Text>
+          <Text style={styles.loadingText}>練習データを読み込み中...</Text>
         </View>
       </SafeAreaView>
     );
@@ -98,37 +98,37 @@ export default function TrainingScreen() {
         showsVerticalScrollIndicator={false}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       >
-        {/* 头部 */}
+        {/* ヘッダー */}
         <View style={styles.header}>
-          <Text style={styles.title}>训练模式</Text>
+          <Text style={styles.title}>練習モード</Text>
           <TouchableOpacity
             style={styles.historyButton}
             onPress={() => router.push('/training/history')}
           >
-            <Text style={styles.historyButtonText}>历史记录</Text>
+            <Text style={styles.historyButtonText}>履歴</Text>
           </TouchableOpacity>
         </View>
 
-        {/* 本周统计 */}
+        {/* 今週の統計 */}
         <View style={styles.weeklyStats}>
-          <Text style={styles.weeklyTitle}>本周训练</Text>
+          <Text style={styles.weeklyTitle}>今週の練習</Text>
           <View style={styles.weeklyRow}>
             <View style={styles.weeklyStat}>
               <Text style={styles.weeklyValue}>{stats?.weekly?.sessionCount || 0}</Text>
-              <Text style={styles.weeklyLabel}>训练次数</Text>
+              <Text style={styles.weeklyLabel}>練習回数</Text>
             </View>
             <View style={styles.weeklyDivider} />
             <View style={styles.weeklyStat}>
               <Text style={styles.weeklyValue}>
                 {formatDuration(stats?.weekly?.totalDuration || 0)}
               </Text>
-              <Text style={styles.weeklyLabel}>总时长</Text>
+              <Text style={styles.weeklyLabel}>合計時間</Text>
             </View>
           </View>
         </View>
 
-        {/* 选择训练类型 */}
-        <Text style={styles.sectionTitle}>选择训练类型</Text>
+        {/* 練習種目を選択 */}
+        <Text style={styles.sectionTitle}>練習種目を選択</Text>
         <View style={styles.trainingTypes}>
           {TRAINING_TYPES.map((type) => {
             const typeStat = stats?.byType?.find((s: any) => s.type === type.id);
@@ -146,7 +146,7 @@ export default function TrainingScreen() {
                   <Text style={styles.trainingDesc}>{type.description}</Text>
                   {typeStat && (
                     <Text style={styles.trainingStats}>
-                      已练习 {typeStat.sessionCount} 次 · 成功率 {typeStat.successRate}%
+                      練習 {typeStat.sessionCount} 回 · 成功率 {typeStat.successRate}%
                     </Text>
                   )}
                 </View>
@@ -156,8 +156,8 @@ export default function TrainingScreen() {
           })}
         </View>
 
-        {/* 技能雷达图 (简化版) */}
-        <Text style={styles.sectionTitle}>技能分析</Text>
+        {/* スキル分析 */}
+        <Text style={styles.sectionTitle}>スキル分析</Text>
         <View style={styles.skillsCard}>
           {stats?.byType?.length > 0 ? (
             stats.byType.map((skill: any) => {
@@ -185,15 +185,15 @@ export default function TrainingScreen() {
           ) : (
             <View style={styles.noSkillsContainer}>
               <Text style={styles.noSkillsIcon}>📊</Text>
-              <Text style={styles.noSkillsText}>开始训练后显示技能分析</Text>
+              <Text style={styles.noSkillsText}>練習を始めるとスキル分析を表示します</Text>
             </View>
           )}
         </View>
 
-        {/* 最近训练 */}
+        {/* 最近の練習 */}
         {recentSessions.length > 0 && (
           <>
-            <Text style={styles.sectionTitle}>最近训练</Text>
+            <Text style={styles.sectionTitle}>最近の練習</Text>
             <View style={styles.recentSessions}>
               {recentSessions.map((session) => {
                 const typeInfo = TRAINING_TYPES.find((t) => t.id === session.type);
@@ -225,28 +225,28 @@ export default function TrainingScreen() {
           </>
         )}
 
-        {/* 成就入口 */}
+        {/* 実績 */}
         <TouchableOpacity
           style={styles.achievementsCard}
           onPress={() => router.push('/training/achievements' as any)}
         >
           <Text style={styles.achievementsIcon}>🏆</Text>
           <View style={styles.achievementsInfo}>
-            <Text style={styles.achievementsTitle}>我的成就</Text>
-            <Text style={styles.achievementsDesc}>查看已解锁的成就和里程碑</Text>
+            <Text style={styles.achievementsTitle}>実績</Text>
+            <Text style={styles.achievementsDesc}>解除済みの実績とマイルストーンを見る</Text>
           </View>
           <Text style={styles.achievementsArrow}>›</Text>
         </TouchableOpacity>
 
-        {/* 鹰眼测试入口 */}
+        {/* ホークアイテスト */}
         <TouchableOpacity
           style={styles.hawkEyeCard}
           onPress={() => router.push('/test/hawk-eye-test')}
         >
           <Text style={styles.hawkEyeIcon}>🦅</Text>
           <View style={styles.hawkEyeInfo}>
-            <Text style={styles.hawkEyeTitle}>AI 鹰眼测试</Text>
-            <Text style={styles.hawkEyeDesc}>测试摄像头球追踪和判定功能</Text>
+            <Text style={styles.hawkEyeTitle}>AIホークアイテスト</Text>
+            <Text style={styles.hawkEyeDesc}>カメラのボール追跡と判定を試す</Text>
           </View>
           <Text style={styles.hawkEyeArrow}>›</Text>
         </TouchableOpacity>

@@ -16,6 +16,7 @@
     "server": "yarn workspace @super-tennis/server",
     "dev:server": "yarn workspace @super-tennis/server dev",
     "dev:mobile": "yarn workspace @super-tennis/mobile start",
+    "dev:tunnel": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\start-tunnel-dev.ps1",
     "dev": "concurrently \"yarn dev:server\" \"yarn dev:mobile\"",
     "db:push": "yarn workspace @super-tennis/server db:push",
     "db:studio": "yarn workspace @super-tennis/server db:studio",

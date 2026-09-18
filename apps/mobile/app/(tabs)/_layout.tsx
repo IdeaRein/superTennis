@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import { Text, View } from 'react-native';
 
-// 简单的图标组件，后续可替换为 @expo/vector-icons
+// 簡易アイコン。必要に応じて @expo/vector-icons に置き換える。
 function TabIcon({ name, focused }: { name: string; focused: boolean }) {
   const icons: Record<string, string> = {
     home: '🏠',
@@ -45,23 +45,23 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: '首页',
-          headerTitle: '超级网球',
+          title: 'ホーム',
+          headerTitle: 'Super Tennis',
           tabBarIcon: ({ focused }) => <TabIcon name="home" focused={focused} />,
         }}
       />
       <Tabs.Screen
         name="matches"
         options={{
-          title: '比赛',
-          headerTitle: '我的比赛',
+          title: '試合',
+          headerTitle: 'マイ試合',
           tabBarIcon: ({ focused }) => <TabIcon name="match" focused={focused} />,
         }}
       />
       <Tabs.Screen
         name="training"
         options={{
-          title: '训练',
+          title: '練習',
           headerShown: false,
           tabBarIcon: ({ focused }) => <TabIcon name="training" focused={focused} />,
         }}
@@ -69,7 +69,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="leaderboard"
         options={{
-          title: '排行',
+          title: 'ランキング',
           headerShown: false,
           tabBarIcon: ({ focused }) => <TabIcon name="leaderboard" focused={focused} />,
         }}
@@ -77,8 +77,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: '我的',
-          headerTitle: '个人中心',
+          title: 'マイページ',
+          headerTitle: 'プロフィール',
           tabBarIcon: ({ focused }) => <TabIcon name="profile" focused={focused} />,
         }}
       />

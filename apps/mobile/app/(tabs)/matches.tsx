@@ -24,7 +24,7 @@ export default function MatchesScreen() {
       const data = await matchApi.getAll();
       setMatches(data);
     } catch (err) {
-      setError('无法加载比赛数据');
+      setError('試合データを読み込めません');
       console.error('Failed to fetch matches:', err);
     } finally {
       setLoading(false);
@@ -41,13 +41,13 @@ export default function MatchesScreen() {
     fetchMatches();
   }, [fetchMatches]);
 
-  // 格式化比分显示
+  // スコアを表示用に整形
   const formatScore = (match: Match) => {
     if (match.player1Sets.length === 0) return '0-0';
     return match.player1Sets.map((s, i) => `${s}-${match.player2Sets[i] ?? 0}`).join('  ');
   };
 
-  // 格式化日期
+  // 日付を表示用に整形
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('ja-JP', {
@@ -58,11 +58,11 @@ export default function MatchesScreen() {
     });
   };
 
-  // 格式化时长
+  // 時間を表示用に整形
   const formatDuration = (seconds: number | null) => {
     if (!seconds) return '';
     const mins = Math.floor(seconds / 60);
-    return `${mins}分钟`;
+    return `${mins}分`;
   };
 
   const renderMatchItem = ({ item }: { item: Match }) => (
@@ -91,12 +91,12 @@ export default function MatchesScreen() {
             style={[styles.resultBadge, item.winner === 1 ? styles.winBadge : styles.loseBadge]}
           >
             <Text style={[styles.resultText, item.winner === 1 ? styles.winText : styles.loseText]}>
-              {item.winner === 1 ? item.player1Name : item.player2Name} 胜
+              {item.winner === 1 ? item.player1Name : item.player2Name} の勝利
             </Text>
           </View>
         ) : (
           <View style={[styles.resultBadge, styles.ongoingBadge]}>
-            <Text style={styles.ongoingText}>进行中</Text>
+            <Text style={styles.ongoingText}>進行中</Text>
           </View>
         )}
         <View style={styles.matchMeta}>
@@ -126,7 +126,7 @@ export default function MatchesScreen() {
           <Text style={styles.emptyIcon}>⚠️</Text>
           <Text style={styles.emptyTitle}>{error}</Text>
           <TouchableOpacity style={styles.startButton} onPress={fetchMatches}>
-            <Text style={styles.startButtonText}>重试</Text>
+            <Text style={styles.startButtonText}>再試行</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -138,11 +138,11 @@ export default function MatchesScreen() {
       {matches.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyIcon}>🎾</Text>
-          <Text style={styles.emptyTitle}>暂无比赛记录</Text>
-          <Text style={styles.emptySubtitle}>开始你的第一场比赛</Text>
+          <Text style={styles.emptyTitle}>試合履歴はありません</Text>
+          <Text style={styles.emptySubtitle}>最初の試合を始めましょう</Text>
           <Link href="/match/setup" asChild>
             <TouchableOpacity style={styles.startButton}>
-              <Text style={styles.startButtonText}>开始比赛</Text>
+              <Text style={styles.startButtonText}>試合を開始</Text>
             </TouchableOpacity>
           </Link>
         </View>

@@ -1,25 +1,33 @@
-// API 配置
-// 开发环境使用本地服务器，生产环境需要替换为实际服务器地址
-// 注意：真机测试时需要使用电脑的局域网 IP，不能用 localhost
+// API設定
+// 開発中は EXPO_PUBLIC_API_URL を指定すると、そのURLを優先する。
+// 実機からPCのAPIへ接続する場合は localhost ではなくPCのLAN IPを使用する。
 import Constants from 'expo-constants';
 
 const getDevApiUrl = () => {
-  // 优先使用 Expo 的 hostUri（会自动获取正确的 IP）
+  const configuredApiUrl = process.env.EXPO_PUBLIC_API_URL;
+  if (configuredApiUrl) {
+    return configuredApiUrl.replace(/\/$/, '');
+  }
+
+  // ExpoのhostUriからPCのLAN IPを取得する。
   const hostUri = Constants.expoConfig?.hostUri;
   if (hostUri) {
     const host = hostUri.split(':')[0];
     return `http://${host}:3001`;
   }
-  // 回退到电脑的局域网 IP
-  return 'http://10.200.63.13:3001';
+  throw new Error('API URLを判定できません。EXPO_PUBLIC_API_URL を設定してください。');
 };
 
 const DEV_API_URL = getDevApiUrl();
-const PROD_API_URL = 'https://api.supertennis.com'; // 生产环境地址
+const PROD_API_URL = 'https://api.supertennis.com'; // 本番環境のURL
 
 const API_BASE_URL = __DEV__ ? DEV_API_URL : PROD_API_URL;
 
-// 通用请求函数
+if (__DEV__) {
+  console.log(`[API] Base URL: ${API_BASE_URL}`);
+}
+
+// 共通リクエスト関数
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
 
